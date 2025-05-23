@@ -12,8 +12,8 @@ if (!MONGODB_URI) {
   process.exit(1); // Stop the app
 }
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
-
+// ✅ Connexion MongoDB sans les options obsolètes
+mongoose.connect(MONGODB_URI)
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
