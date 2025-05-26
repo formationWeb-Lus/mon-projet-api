@@ -33,6 +33,19 @@ app.use('/api/courses', courseRoutes);
 // Swagger Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+// Middleware 404 pour routes non trouvées
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'was not found. Please check the URL and try again.' });
+});
+
+// Middleware global de gestion des erreurs
+app.use((err, req, res, next) => {
+  console.error('❌ Error:', err.stack);
+  res.status(err.status || 500).json({
+    message: err.message || 'An unexpected error occurred on the server. Please try again later.',
+  });
+});
+
 // Serveur
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
