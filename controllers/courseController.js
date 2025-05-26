@@ -1,4 +1,4 @@
-const Entity = require('../models/entity');
+const Entity = require('../models/entityModel');
 
 // GET all
 exports.getAll = async (req, res) => {
