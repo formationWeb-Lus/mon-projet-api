@@ -1,0 +1,91 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Training API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/courses": {
+      "get": {
+        "summary": "Get all courses",
+        "responses": {
+          "200": {
+            "description": "List of courses"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new course",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation Error" }
+        }
+      }
+    },
+    "/api/entities": {
+      "get": {
+        "summary": "Get all entities",
+        "responses": {
+          "200": {
+            "description": "List of entities"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new entity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Entity"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation Error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Course": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "categoryId": { "type": "string" },
+          "price": { "type": "number" },
+          "duration": { "type": "string" },
+          "level": { "type": "string" },
+          "language": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["name", "categoryId", "price", "duration", "level", "language", "description"]
+      },
+      "Entity": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "category": { "type": "string" },
+          "price": { "type": "number" },
+          "quantity": { "type": "number" }
+        },
+        "required": ["title", "description", "category", "price", "quantity"]
+      }
+    }
+  }
+}
