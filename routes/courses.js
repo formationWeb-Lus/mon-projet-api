@@ -37,7 +37,10 @@ router.get('/:id', async (req, res, next) => {
 // PUT /api/courses/:id - modifier un cours
 router.put('/:id', async (req, res, next) => {
   try {
-    const updated = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const updated = await Course.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
     if (!updated) return res.status(404).json({ message: 'Course not found' });
     res.json(updated);
   } catch (err) {
@@ -56,4 +59,5 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
+// 🔧 Correction ici : on exporte bien le routeur
 module.exports = router;
