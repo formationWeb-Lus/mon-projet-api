@@ -73,7 +73,7 @@
           "language": { "type": "string" },
           "description": { "type": "string" }
         },
-        "required": ["name", "categoryId", "price", "duration", "level", "language", "description"]
+        "required": ["name", "price", "duration", "level", "language", "description"]
       },
       "Entity": {
         "type": "object",
