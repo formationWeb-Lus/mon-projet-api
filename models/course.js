@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 
 const courseSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  type: { type: String, default: 'Course' },
-  price: { type: Number, required: true, min: 0 },
+  categoryId: { type: String, required: true },
+  price: { type: Number, required: true },
   duration: { type: String, required: true },
-  level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], required: true },
+  level: { type: String, required: true },
   language: { type: String, required: true },
   description: { type: String, required: true }
-}, { timestamps: true });
+});
 
-module.exports = mongoose.model('Course', courseSchema);
+// Vérifie si le modèle existe déjà, sinon le crée
+module.exports = mongoose.models.Course || mongoose.model('Course', courseSchema);
