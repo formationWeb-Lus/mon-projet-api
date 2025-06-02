@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const courseSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  categoryId: { type: String, required: true },
   price: { type: Number, required: true },
   duration: { type: String, required: true },
   level: { type: String, required: true },
@@ -10,4 +10,5 @@ const courseSchema = new mongoose.Schema({
   description: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Course', courseSchema);
+// Vérifie si le modèle existe déjà, sinon le crée
+module.exports = mongoose.models.Course || mongoose.model('Course', courseSchema);
