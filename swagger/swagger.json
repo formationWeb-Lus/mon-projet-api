@@ -9,9 +9,7 @@
       "get": {
         "summary": "Get all courses",
         "responses": {
-          "200": {
-            "description": "List of courses"
-          }
+          "200": { "description": "List of courses" }
         }
       },
       "post": {
@@ -20,9 +18,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Course"
-              }
+              "schema": { "$ref": "#/components/schemas/Course" }
             }
           }
         },
@@ -32,13 +28,53 @@
         }
       }
     },
+    "/api/courses/{id}": {
+      "put": {
+        "summary": "Update a course",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Course" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Course updated successfully" },
+          "400": { "description": "Validation Error" },
+          "500": { "description": "Server Error" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a course",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Course deleted successfully" },
+          "404": { "description": "Course not found" },
+          "500": { "description": "Server Error" }
+        }
+      }
+    },
     "/api/entities": {
       "get": {
         "summary": "Get all entities",
         "responses": {
-          "200": {
-            "description": "List of entities"
-          }
+          "200": { "description": "List of entities" }
         }
       },
       "post": {
@@ -47,15 +83,55 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Entity"
-              }
+              "schema": { "$ref": "#/components/schemas/Entity" }
             }
           }
         },
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Validation Error" }
+        }
+      }
+    },
+    "/api/entities/{id}": {
+      "put": {
+        "summary": "Update an entity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Entity" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Entity updated successfully" },
+          "400": { "description": "Validation Error" },
+          "500": { "description": "Server Error" }
+        }
+      },
+      "delete": {
+        "summary": "Delete an entity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Entity deleted successfully" },
+          "404": { "description": "Entity not found" },
+          "500": { "description": "Server Error" }
         }
       }
     }
