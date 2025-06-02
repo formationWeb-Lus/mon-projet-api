@@ -1,24 +1,24 @@
+// Load environment variables first
 require('dotenv').config();
-const express = require('express');
+
+// Then load passport config that uses env variables
+require('./config/passport');
+
 const mongoose = require('mongoose');
 const fs = require('fs');
 const session = require('express-session');
 const passport = require('passport');
-require('./config/passport');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = JSON.parse(fs.readFileSync('./swagger/swagger.json', 'utf8'));
 
-const entityRoutes = require('./routes/entity');
-const courseRoutes = require('./routes/courses');
-const authRoutes = require('./routes/auth');
-
+const express = require('express');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-// Middleware session et Passport
+// Middleware session and Passport
 app.use(session({
   secret: process.env.SESSION_SECRET || 'secret-code',
   resave: false,
@@ -29,20 +29,25 @@ app.use(passport.session());
 
 app.use(express.json());
 
-// Routes
+// Import and use routes
+const categoryRoutes = require('./routes/categoryRoutes');
+const entityRoutes = require('./routes/entity');
+const courseRoutes = require('./routes/courses');
+const authRoutes = require('./routes/auth');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/entities', entityRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api/categories', categoryRoutes);
 
-// Swagger Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// 404 Middleware
+// 404 middleware
 app.use((req, res, next) => {
   res.status(404).json({ message: 'was not found. Please check the URL and try again.' });
 });
 
-// Gestion d’erreurs
+// Global error handler
 app.use((err, req, res, next) => {
   console.error('❌ Error:', err.stack);
   res.status(err.status || 500).json({
@@ -50,7 +55,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ Connexion MongoDB puis lancement du serveur
+// Connect to MongoDB then start server
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('✅ Connexion réussie à MongoDB');
