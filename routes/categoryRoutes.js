@@ -1,7 +1,8 @@
 // routes/categoryRoutes.js
 const express = require('express');
 const router = express.Router();
-const Category = require('./models/Category');
+const Category = require('../models/category');
+
 // assure-toi que le chemin est correct
 
 // GET all categories
